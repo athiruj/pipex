@@ -6,7 +6,18 @@
 /*   By: atkaewse <atkaewse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 10:28:41 by atkaewse          #+#    #+#             */
-/*   Updated: 2024/11/26 10:28:43 by atkaewse         ###   ########.fr       */
+/*   Updated: 2024/11/26 11:21:37 by atkaewse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "pipex.h"
+#include <stdio.h>
+
+int	main(void)
+{
+	char	*str;
+
+	str = get_next_line(0);
+	printf("%s", str);
+	return (0);
+}
