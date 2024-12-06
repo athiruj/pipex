@@ -6,7 +6,7 @@
 /*   By: atkaewse <atkaewse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 10:28:41 by atkaewse          #+#    #+#             */
-/*   Updated: 2024/12/06 12:09:17 by atkaewse         ###   ########.fr       */
+/*   Updated: 2024/12/06 23:17:36 by atkaewse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 
 int	main(int argc, char *argv[], char *env[])
 {
+	ft_puterror("pipex", "hello", 0);
 	if (argv[1] && !ft_strcmp("here_doc", argv[1]) && argc < 6)
 	{
 		ft_putstr_fd("Usage: here_doc <EOF> <command1> <command2> \

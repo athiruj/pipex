@@ -1,57 +1,124 @@
-CC			= 		cc
-CCFLAGS		=		-Wall -Wextra -Werror
-AR			=		ar -rsc
-RM			=		rm -rf
+CC				= 		cc
+# CCFLAGS		=		-Wall -Wextra -Werror
+CCFLAGS			=		
+AR				=		ar -rsc
+RM				=		rm -rf
 
-NAME		=		pipex
+NAME			=		pipex
 
-OBJS_DIR	=		odjs/
+# ==== Directories ========================================
 
-LIB_DIR		=		libft/
-LIBFT		=		libft/libft.a
+OBJS_DIR		=		objs/
+OBJS_DIRS		=		$(OBJS_DIR) $(GNL_OBJ_DIR) $(ALL_OBJ_DIR)
 
-GNL_DIR		=		get_next_line/
+# ==== Submodule ==========================================
 
-GNLHEADER	=		get_next_line/get_next_line.h
-GNLFILES	=		get_next_line/get_next_line.c \
-					get_next_line/get_next_line_utils.c
+SUBMD_DIR		=		submodule/
 
-GNL_OBJS	=		$(addprefix $(OBJS_DIR), $(GNLFILES:.c=.o))
+SUBMD			=		$(LIBFT) $(GNL)
 
-HEADER		= 		pipex.h
-FILES		=		pipex.c
+# ---- Submodule Libft ------------------------------------
 
-UTILS		=		
+LIBFT			=		$(LIB_DIR)libft.a
 
-FILE_OBJS	=		$(addprefix $(OBJS_DIR), $(FILES:.c=.o)) \
-					$(addprefix $(OBJS_DIR), $(UTILS:.c=.o))
+LIB_DIR			=		$(SUBMD_DIR)libft/
 
-all: $(LIBFT) $(NAME)
+# ---- Submodule GNL --------------------------------------
 
-$(NAME): $(OBJS_DIR) $(LIBFT) $(GNL_OBJS) $(FILE_OBJS) Makefile
-	$(CC) $(CCFLAGS) -o $@ $(FILE_OBJS) $(LIBFT) $(GNL_OBJS)
+GNL_DIR			=		$(SUBMD_DIR)get_next_line/
+GNL				=		$(GNL_DIR)get_next_line.a
+GNL_OBJ_DIR		=		$(OBJS_DIR)$(GNL_DIR)
 
-$(OBJS_DIR):
+GNL_HEADER		=		get_next_line.h
+GNL_DIR_HEADER	=		$(GNL_DIR)
+
+GNL_FILES		=		get_next_line.c \
+						get_next_line_utils.c
+
+GNL_DIR_FILES	=		$(addprefix $(GNL_DIR), $(GNL_FILES))
+GNL_OBJ_FILES	=		$(addprefix $(OBJS_DIR), $(GNL_DIR_FILES:.c=.o))
+
+# ==== Header =============================================
+
+HEADER_DIR		=	 	include/
+
+# ==== Source ==============================================
+
+SRC_DIR			=		src/
+SRC_OBJ_DIR		=		$(OBJS_DIR)$(SRC_DIR)
+
+SRC_FILE		=		pipex.c
+
+SRC_DIR_FILES	=		$(addprefix $(SRC_DIR), $(SRC_FILE))
+SRC_OBJ_FILES	=		$(addprefix $(OBJS_DIR), $(SRC_DIR_FILES:.c=.o))
+
+# ---- Source Utils ----------------------------------------
+
+UTIL_DIR		=		$(SRC_DIR)utils/
+UTIL_OBJ_DIR	=		$(OBJS_DIR)$(UTIL_DIR)
+
+UTIL_FILES		=		ft_puterror.c
+
+UTIL_DIR_FILES	=		$(addprefix $(UTIL_DIR), $(UTIL_FILES))
+UTIL_OBJ_FILES	=		$(addprefix $(OBJS_DIR), $(UTIL_DIR_FILES:.c=.o))
+
+# ==== ALL ===============================================
+
+ALL_OBJ_DIR		=		$(SRC_OBJ_DIR) \
+						$(UTIL_OBJ_DIR)
+
+ALL_OBJS		=		$(SRC_OBJ_FILES) \
+						$(UTIL_OBJ_FILES)
+
+COLOUR_GREEN	=		\033[0;32m
+COLOUR_RED		=		\033[0;31m
+COLOUR_BLUE		=		\033[0;34m
+COLOUR_END		=		\033[0m
+
+all: $(NAME)
+	@printf "$(COLOUR_GREEN)Complie $@ Completed!!!\n$(COLOUR_END)"
+
+$(NAME): $(OBJS_DIRS) $(SUBMD) $(ALL_OBJS) Makefile
+	$(CC) $(CCFLAGS) -I $(HEADER_DIR) $(LIBFT) $(GNL) -o $@ $(ALL_OBJS)
+	@printf "$(COLOUR_GREEN)Complie $@ Completed!!!\n$(COLOUR_END)"
+
+$(OBJS_DIRS):
 	@mkdir -p $@
-	@mkdir -p $@/$(GNL_DIR)
 
 $(LIBFT):
 	@make --no-print-directory -C $(LIB_DIR)
 
-$(GNL_OBJS)%o: $(GNLFILES)
-	$(CC) $(CCFLAGS) -I $(GNLHEADER) -c $< -o $@
+$(GNL): $(GNL_OBJ_FILES)
+	$(AR) $@ $<
+	@printf "$(COLOUR_GREEN)Complie Get_next_line Completed!!!\n$(COLOUR_END)"
 
-$(OBJS_DIR)%.o: %.c
-	$(CC) $(CCFLAGS) -I $(HEADER) -c $< -o $@
+$(GNL_OBJ_DIR)%.o: $(GNL_DIR)%.c $(GNL_DIR_HEADER)
+	$(CC) $(CCFLAGS) -I $(GNL_DIR_HEADER) -c $< -o $@
+
+$(SRC_OBJ_DIR)%.o: $(SRC_DIR)%.c
+	$(CC) $(CCFLAGS) -c $< -o $@
+
+# $(UTIL_OBJ_FILES)%.o: $(UTIL_DIR)%.c
+# 	@printf "$(COLOUR_GREEN)Complie Utility Objects Completed!!!\n$(COLOUR_END)"
+# 	$(CC) $(CCFLAGS) -c $< -o $@
+
+bonus: all
 
 clean:
 	@make clean -C $(LIB_DIR)
 	$(RM) $(OBJS_DIR)
+	@printf "$(COLOUR_RED)Remove Objects Completed\n$(COLOUR_END)"
 
 fclean: clean
 	@make fclean -C $(LIB_DIR)
+	$(RM) $(GNL)
+	@printf "$(COLOUR_RED)Remove Get_next_line Completed\n$(COLOUR_END)"
 	$(RM) $(NAME)
+	@printf "$(COLOUR_RED)Remove pipex Completed\n$(COLOUR_END)"
+	
 
 re: fclean all
 
-.PHONY: all clean fclean re
+.PHONY: all clean fclean re bonus
+
+.SILENT: fclean clean $(NAME) $(ALL_OBJS) $(GNL_OBJ_FILES) $(GNL)

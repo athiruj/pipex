@@ -6,11 +6,11 @@
 /*   By: atkaewse <atkaewse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/06 08:19:54 by atkaewse          #+#    #+#             */
-/*   Updated: 2024/12/06 12:32:22 by atkaewse         ###   ########.fr       */
+/*   Updated: 2024/12/06 22:31:39 by atkaewse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/pipex.h"
+#include "../../include/pipex.h"
 
 int	ft_puterror(char *program, char *target, int err_no)
 {
