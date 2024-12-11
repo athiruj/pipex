@@ -69,6 +69,8 @@ INIT_OBJ_DIR	=		$(OBJS_DIR)$(INIT_DIR)
 
 INIT_FILES		=		initial_pipex.c \
 						initial_io.c \
+						initial_cmds.c \
+						initial_pipes.c \
 						here_doc.c
 
 INIT_DIR_FILES	=		$(addprefix $(INIT_DIR), $(INIT_FILES))
