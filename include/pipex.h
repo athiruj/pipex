@@ -6,7 +6,7 @@
 /*   By: atkaewse <atkaewse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 10:28:35 by atkaewse          #+#    #+#             */
-/*   Updated: 2024/12/06 09:59:19 by atkaewse         ###   ########.fr       */
+/*   Updated: 2024/12/12 21:26:57 by atkaewse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,24 +20,36 @@
 # include <limits.h>
 # include <sys/wait.h>
 # include <sys/types.h>
-# include <errno.h>
+// # include <errno.h>
 # include <string.h>
 # include <sys/errno.h>
 
 # include "../submodule/libft/libft.h"
 # include "../submodule/get_next_line/get_next_line.h"
 
+# define PROGRAM "pipex"
+
 typedef struct s_pipex
 {
-	char	**cmds;
-	int		src_fd;
-	int		dst_fd;
-	int		*pipe_fds[2];
+	int		io_fds[2];
+	int		**pipe_fds;
+	char	***cmds;
+	char	**cmd_paths;
 	int		pipes;
 	int		status;
 	t_bool	here_doc;
 }	t_pipex;
 
-int	ft_puterror(char *program, char *target, int err_no);
+int		initial_pipex(t_pipex *pipe, int argc, char *argv[], char *env[]);
+
+int		initial_io(t_pipex *pipe, int argc, char *argv[]);
+int		initial_cmds(t_pipex *pipe, int argc, char *argv[], char *env[]);
+int		initial_pipes(t_pipex *pipe, int argc);
+
+void	create_path(char **cmd_path, char *path, char *cmd);
+int		free_pipex(t_pipex *pipe);
+int		free_array(char **arr);
+int		free_2d_array(char ***arr);
+int		ft_puterror(char *program, char *target, int err_no);
 
 #endif

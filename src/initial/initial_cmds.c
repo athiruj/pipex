@@ -6,7 +6,7 @@
 /*   By: atkaewse <atkaewse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 11:56:11 by atkaewse          #+#    #+#             */
-/*   Updated: 2024/12/12 21:14:54 by atkaewse         ###   ########.fr       */
+/*   Updated: 2024/12/12 21:27:47 by atkaewse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,6 @@ static char	**get_env_path(char *env[])
 static char	**verify_cmd_paths(char ***cmds, char **paths, int n_cmds)
 {
 	char	**cmd_paths;
-	// char	*tmp_cmd_path;
 	char	**tmp_paths;
 	int		i;
 
