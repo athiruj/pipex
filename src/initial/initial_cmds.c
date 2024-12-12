@@ -6,7 +6,7 @@
 /*   By: atkaewse <atkaewse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 11:56:11 by atkaewse          #+#    #+#             */
-/*   Updated: 2024/12/11 23:56:52 by atkaewse         ###   ########.fr       */
+/*   Updated: 2024/12/12 21:14:54 by atkaewse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,16 +16,16 @@
  *	Splitting a set of commands 
  *	return a pointer of pointer of commands array
  */
-static char	***split_cmds(int n, char *argv[])
+static char	***split_cmds(int n_cmds, char *argv[])
 {
 	char	***cmds;
 	int		i;
 
-	if (!n || !argv)
+	if (!n_cmds || !argv)
 		return (NULL);
 	i = 0;
-	cmds = (char ***)malloc(sizeof(char **) * (n + 1));
-	while (i < n)
+	cmds = (char ***)malloc(sizeof(char **) * (n_cmds + 1));
+	while (i < n_cmds)
 	{
 		cmds[i] = ft_split(argv[i], ' ');
 		i++;
@@ -48,13 +48,10 @@ static char	**get_env_path(char *env[])
 	while (env[i])
 	{
 		if (!ft_strncmp("PATH=", env[i], 5))
-			break ;
+			return (env_path = ft_split(env[i] + 5, ':'));
 		i++;
 	}
-	env_path = ft_split(env[i] + 5, ':');
-	if (!env_path)
-		return (NULL);
-	return (env_path);
+	return (NULL);
 }
 
 /*
@@ -64,7 +61,7 @@ static char	**get_env_path(char *env[])
 static char	**verify_cmd_paths(char ***cmds, char **paths, int n_cmds)
 {
 	char	**cmd_paths;
-	char	*tmp_cmd_path;
+	// char	*tmp_cmd_path;
 	char	**tmp_paths;
 	int		i;
 
@@ -75,16 +72,12 @@ static char	**verify_cmd_paths(char ***cmds, char **paths, int n_cmds)
 	while (i < n_cmds)
 	{
 		tmp_paths = paths;
+		cmd_paths[i] = ft_strdup(*tmp_paths);
 		while (*tmp_paths)
 		{
-			tmp_cmd_path = ft_strjoin(*tmp_paths++, "/");
-			ft_strcat(tmp_cmd_path, cmds[i][0]);
-			if (!access(tmp_cmd_path, F_OK))
-			{
-				cmd_paths[i] = tmp_cmd_path;
+			create_path(&cmd_paths[i], *tmp_paths++, cmds[i][0]);
+			if (!access(cmd_paths[i], F_OK))
 				break ;
-			}
-			// free(tmp_cmd_path);
 		}
 		i++;
 	}
@@ -92,7 +85,7 @@ static char	**verify_cmd_paths(char ***cmds, char **paths, int n_cmds)
 }
 
 /*
- *	Return a Path of commands
+ *	Return a Path with commands
  */
 static char	**get_cmd_paths(char ***cmds, int n_cmds, char *env[])
 {
@@ -108,9 +101,11 @@ static char	**get_cmd_paths(char ***cmds, int n_cmds, char *env[])
 	if (!cmd_paths)
 	{
 		free_array(env_paths);
+		free(env_paths);
 		return (NULL);
 	}
 	free_array(env_paths);
+	free(env_paths);
 	return (cmd_paths);
 }
 
@@ -125,12 +120,10 @@ int	initial_cmds(t_pipex *pipe, int argc, char *argv[], char *env[])
 	if (!pipe->cmds)
 		return (-1);
 	pipe->cmd_paths = get_cmd_paths(pipe->cmds, pipe->pipes + 1, env);
-	while (*pipe->cmd_paths)
-		printf("%s\n", *pipe->cmd_paths++);
-	// if (!pipe->cmd_paths)
-	// {
-	// 	free_2d_array(pipe->cmds);
-	// 	return (-1);
-	// }
+	if (!pipe->cmd_paths)
+	{
+		free_2d_array(pipe->cmds);
+		return (-1);
+	}
 	return (0);
 }

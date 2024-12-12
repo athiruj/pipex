@@ -1,31 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_puterror.c                                      :+:      :+:    :+:   */
+/*   free_array.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: atkaewse <atkaewse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/06 08:19:54 by atkaewse          #+#    #+#             */
-/*   Updated: 2024/12/09 23:55:13 by atkaewse         ###   ########.fr       */
+/*   Created: 2024/12/11 17:18:36 by atkaewse          #+#    #+#             */
+/*   Updated: 2024/12/12 21:20:03 by atkaewse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+
 #include "../../include/pipex.h"
 
-int	ft_puterror(char *program, char *target, int err_no)
+int	free_array(char **arr)
 {
-	if (program)
-	{
-		ft_putstr_fd(program, 2);
-		write(2, ": ", 2);
-	}
-	if (err_no)
-		ft_putstr_fd(strerror(err_no), 2);
-	if (target)
-	{
-		write(2, ": ", 2);
-		ft_putstr_fd(target, 2);
-	}
-	write(2, "\n", 1);
-	return (err_no);
+	if (!arr)
+		return (-1);
+	while (*arr)
+		free(*arr++);
+	return (0);
 }

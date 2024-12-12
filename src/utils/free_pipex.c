@@ -1,31 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_puterror.c                                      :+:      :+:    :+:   */
+/*   free_pipex.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: atkaewse <atkaewse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/06 08:19:54 by atkaewse          #+#    #+#             */
-/*   Updated: 2024/12/09 23:55:13 by atkaewse         ###   ########.fr       */
+/*   Created: 2024/12/11 17:49:42 by atkaewse          #+#    #+#             */
+/*   Updated: 2024/12/12 21:25:03 by atkaewse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/pipex.h"
 
-int	ft_puterror(char *program, char *target, int err_no)
+int	free_pipex(t_pipex	*pipe)
 {
-	if (program)
+	if (pipe->cmds)
 	{
-		ft_putstr_fd(program, 2);
-		write(2, ": ", 2);
+		free_2d_array(pipe->cmds);
+		free(pipe->cmds);
 	}
-	if (err_no)
-		ft_putstr_fd(strerror(err_no), 2);
-	if (target)
+	if (pipe->cmd_paths)
 	{
-		write(2, ": ", 2);
-		ft_putstr_fd(target, 2);
+		free_array(pipe->cmd_paths);
+		free(pipe->cmd_paths);
 	}
-	write(2, "\n", 1);
-	return (err_no);
+	return (0);
 }

@@ -1,31 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_puterror.c                                      :+:      :+:    :+:   */
+/*   initial_pipes.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: atkaewse <atkaewse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/06 08:19:54 by atkaewse          #+#    #+#             */
-/*   Updated: 2024/12/09 23:55:13 by atkaewse         ###   ########.fr       */
+/*   Created: 2024/12/10 00:03:42 by atkaewse          #+#    #+#             */
+/*   Updated: 2024/12/11 15:49:26 by atkaewse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/pipex.h"
 
-int	ft_puterror(char *program, char *target, int err_no)
+int	initial_pipes(t_pipex *pipe, int argc)
 {
-	if (program)
-	{
-		ft_putstr_fd(program, 2);
-		write(2, ": ", 2);
-	}
-	if (err_no)
-		ft_putstr_fd(strerror(err_no), 2);
-	if (target)
-	{
-		write(2, ": ", 2);
-		ft_putstr_fd(target, 2);
-	}
-	write(2, "\n", 1);
-	return (err_no);
+	if (!pipe || !argc)
+		return (-1);
+	printf("number of pipes %d\n", pipe->pipes);
+	return (0);
 }
