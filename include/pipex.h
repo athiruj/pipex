@@ -6,7 +6,7 @@
 /*   By: atkaewse <atkaewse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 10:28:35 by atkaewse          #+#    #+#             */
-/*   Updated: 2024/12/14 11:13:38 by atkaewse         ###   ########.fr       */
+/*   Updated: 2024/12/14 12:08:48 by atkaewse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@
 # include <limits.h>
 # include <sys/wait.h>
 # include <sys/types.h>
-// # include <errno.h>
 # include <string.h>
 # include <sys/errno.h>
 
@@ -40,10 +39,13 @@ typedef struct s_pipex
 }	t_pipex;
 
 int		pipex(int argc, char *argv[], char *env[]);
+
 int		initial_pipex(t_pipex *pipex, int argc, char *argv[], char *env[]);
 int		initial_io(t_pipex *pipex, int argc, char *argv[]);
 int		initial_cmds(t_pipex *pipex, int argc, char *argv[], char *env[]);
 int		initial_pipes(t_pipex *pipex, int argc);
+
+int		pipex_process(t_pipex *pipex);
 
 char	*try_access(char **env, char *cmd);
 int		free_pipex(t_pipex *pipex);
