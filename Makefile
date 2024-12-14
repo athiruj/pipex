@@ -47,7 +47,8 @@ HEADER_DIR		=	 	include/
 SRC_DIR			=		src/
 SRC_OBJ_DIR		=		$(OBJS_DIR)$(SRC_DIR)
 
-SRC_FILE		=		pipex.c
+SRC_FILE		=		main.c \
+						pipex.c
 
 SRC_DIR_FILES	=		$(addprefix $(SRC_DIR), $(SRC_FILE))
 SRC_OBJ_FILES	=		$(addprefix $(OBJS_DIR), $(SRC_DIR_FILES:.c=.o))
@@ -57,7 +58,10 @@ SRC_OBJ_FILES	=		$(addprefix $(OBJS_DIR), $(SRC_DIR_FILES:.c=.o))
 UTIL_DIR		=		$(SRC_DIR)utils/
 UTIL_OBJ_DIR	=		$(OBJS_DIR)$(UTIL_DIR)
 
-UTIL_FILES		=		ft_puterror.c
+UTIL_FILES		=		ft_puterror.c \
+						create_path.c \
+						free_pipex.c \
+						free_array.c
 
 UTIL_DIR_FILES	=		$(addprefix $(UTIL_DIR), $(UTIL_FILES))
 UTIL_OBJ_FILES	=		$(addprefix $(OBJS_DIR), $(UTIL_DIR_FILES:.c=.o))
@@ -70,8 +74,7 @@ INIT_OBJ_DIR	=		$(OBJS_DIR)$(INIT_DIR)
 INIT_FILES		=		initial_pipex.c \
 						initial_io.c \
 						initial_cmds.c \
-						initial_pipes.c \
-						here_doc.c
+						initial_pipes.c
 
 INIT_DIR_FILES	=		$(addprefix $(INIT_DIR), $(INIT_FILES))
 INIT_OBJ_FILES	=		$(addprefix $(OBJS_DIR), $(INIT_DIR_FILES:.c=.o))

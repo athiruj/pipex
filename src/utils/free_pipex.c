@@ -6,23 +6,28 @@
 /*   By: atkaewse <atkaewse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 17:49:42 by atkaewse          #+#    #+#             */
-/*   Updated: 2024/12/12 21:25:03 by atkaewse         ###   ########.fr       */
+/*   Updated: 2024/12/14 11:08:14 by atkaewse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/pipex.h"
 
-int	free_pipex(t_pipex	*pipe)
+int	free_pipex(t_pipex	*pipex)
 {
-	if (pipe->cmds)
+	if (pipex->cmds)
 	{
-		free_2d_array(pipe->cmds);
-		free(pipe->cmds);
+		free_2d_array(pipex->cmds);
+		free(pipex->cmds);
 	}
-	if (pipe->cmd_paths)
+	if (pipex->cmd_paths)
 	{
-		free_array(pipe->cmd_paths);
-		free(pipe->cmd_paths);
+		free_array(pipex->cmd_paths);
+		free(pipex->cmd_paths);
+	}
+	if (pipex->pipe_fds)
+	{
+		free_iarray(pipex->pipe_fds);
+		free(pipex->pipe_fds);
 	}
 	return (0);
 }

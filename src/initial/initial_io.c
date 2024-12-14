@@ -6,7 +6,7 @@
 /*   By: atkaewse <atkaewse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 10:47:44 by atkaewse          #+#    #+#             */
-/*   Updated: 2024/12/11 15:16:20 by atkaewse         ###   ########.fr       */
+/*   Updated: 2024/12/13 23:50:01 by atkaewse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,11 @@ static char	*read_here_doc(const char *eof)
 	char	*tmp_here_doc;
 	char	*tmp_line;
 
-	write(1, "pipe heredoc> ", 15);
+	write(1, "pipex heredoc> ", 15);
 	tmp_line = get_next_line(0);
 	if (ft_strcmp(tmp_line, eof) != '\n')
 	{
-		write(1, "pipe heredoc> ", 15);
+		write(1, "pipex heredoc> ", 15);
 		tmp_here_doc = get_next_line(0);
 		while ((ft_strcmp(tmp_line, eof) != '\n')
 			&& (ft_strcmp(tmp_here_doc, eof) != '\n'))
@@ -31,7 +31,7 @@ static char	*read_here_doc(const char *eof)
 			free(tmp_line);
 			free(tmp_here_doc);
 			tmp_here_doc = here_doc_str;
-			write(1, "pipe heredoc> ", 15);
+			write(1, "pipex heredoc> ", 15);
 			tmp_line = get_next_line(0);
 		}
 		free(tmp_here_doc);
@@ -41,7 +41,7 @@ static char	*read_here_doc(const char *eof)
 }
 
 /*
- *	Open I/O pipe
+ *	Open I/O pipex
  *	Return 0 if SUCCESS and return -1 when fail
  */
 static int	pipe_io(char *infile, char *outfile, int fds[2])
@@ -59,7 +59,7 @@ static int	pipe_io(char *infile, char *outfile, int fds[2])
 }
 
 /*
- *	Open I/O pipe for here_doc
+ *	Open I/O pipex for here_doc
  *	Return 0 if SUCCESS and return -1 when fail
  */
 static int	pipe_io_here_doc(char *eof, char *outfile, int fds[2])
@@ -87,17 +87,17 @@ static int	pipe_io_here_doc(char *eof, char *outfile, int fds[2])
 }
 
 /*
- *	Initial file descriptor for I/O pipe
+ *	Initial file descriptor for I/O pipex
  *	Return 0 if SUCCESS and return -1 when fail
  */
-int	initial_io(t_pipex *pipe, int argc, char *argv[])
+int	initial_io(t_pipex *pipex, int argc, char *argv[])
 {
-	if (!pipe || !argc | !argv)
+	if (!pipex || !argc | !argv)
 		return (-1);
-	if (pipe->here_doc)
-		return (pipe_io_here_doc(argv[2], argv[argc - 1], pipe->io_fds));
-	else if (!pipe->here_doc)
-		return (pipe_io(argv[1], argv[argc - 1], pipe->io_fds));
+	if (pipex->here_doc)
+		return (pipe_io_here_doc(argv[2], argv[argc - 1], pipex->io_fds));
+	else if (!pipex->here_doc)
+		return (pipe_io(argv[1], argv[argc - 1], pipex->io_fds));
 	else
 		return (-1);
 }

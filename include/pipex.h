@@ -6,7 +6,7 @@
 /*   By: atkaewse <atkaewse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 10:28:35 by atkaewse          #+#    #+#             */
-/*   Updated: 2024/12/12 21:26:57 by atkaewse         ###   ########.fr       */
+/*   Updated: 2024/12/14 11:13:38 by atkaewse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,21 +33,21 @@ typedef struct s_pipex
 {
 	int		io_fds[2];
 	int		**pipe_fds;
+	int		pipes;
 	char	***cmds;
 	char	**cmd_paths;
-	int		pipes;
-	int		status;
 	t_bool	here_doc;
 }	t_pipex;
 
-int		initial_pipex(t_pipex *pipe, int argc, char *argv[], char *env[]);
+int		pipex(int argc, char *argv[], char *env[]);
+int		initial_pipex(t_pipex *pipex, int argc, char *argv[], char *env[]);
+int		initial_io(t_pipex *pipex, int argc, char *argv[]);
+int		initial_cmds(t_pipex *pipex, int argc, char *argv[], char *env[]);
+int		initial_pipes(t_pipex *pipex, int argc);
 
-int		initial_io(t_pipex *pipe, int argc, char *argv[]);
-int		initial_cmds(t_pipex *pipe, int argc, char *argv[], char *env[]);
-int		initial_pipes(t_pipex *pipe, int argc);
-
-void	create_path(char **cmd_path, char *path, char *cmd);
-int		free_pipex(t_pipex *pipe);
+char	*try_access(char **env, char *cmd);
+int		free_pipex(t_pipex *pipex);
+int		free_iarray(int **arr);
 int		free_array(char **arr);
 int		free_2d_array(char ***arr);
 int		ft_puterror(char *program, char *target, int err_no);

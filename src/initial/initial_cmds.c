@@ -6,7 +6,7 @@
 /*   By: atkaewse <atkaewse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 11:56:11 by atkaewse          #+#    #+#             */
-/*   Updated: 2024/12/12 21:27:47 by atkaewse         ###   ########.fr       */
+/*   Updated: 2024/12/14 11:01:02 by atkaewse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,16 @@ static char	***split_cmds(int n_cmds, char *argv[])
 		return (NULL);
 	i = 0;
 	cmds = (char ***)malloc(sizeof(char **) * (n_cmds + 1));
+	if (!cmds)
+		return (NULL);
 	while (i < n_cmds)
 	{
 		cmds[i] = ft_split(argv[i], ' ');
-		i++;
+		if (!cmds[i++])
+		{
+			free_2d_array(cmds);
+			return (NULL);
+		}
 	}
 	return (cmds);
 }
@@ -58,25 +64,23 @@ static char	**get_env_path(char *env[])
  *	Verify a PATH with command try to access 
  *	return a pointer of matching command path array
  */
-static char	**verify_cmd_paths(char ***cmds, char **paths, int n_cmds)
+static char	**verify_cmd_paths(char ***cmds, char **env_paths, int n_cmds)
 {
 	char	**cmd_paths;
-	char	**tmp_paths;
+	char	**tmp_env;
 	int		i;
 
-	if (!cmds || !paths || !n_cmds)
+	cmd_paths = (char **)malloc(sizeof(char *) * (n_cmds + 1));
+	if (!cmd_paths)
 		return (NULL);
 	i = 0;
-	cmd_paths = (char **)malloc(sizeof(char *) * (n_cmds + 1));
 	while (i < n_cmds)
 	{
-		tmp_paths = paths;
-		cmd_paths[i] = ft_strdup(*tmp_paths);
-		while (*tmp_paths)
+		cmd_paths[i] = try_access(env_paths, cmds[i][0]);
+		if (!cmd_paths[i])
 		{
-			create_path(&cmd_paths[i], *tmp_paths++, cmds[i][0]);
-			if (!access(cmd_paths[i], F_OK))
-				break ;
+			free(cmd_paths);
+			return (NULL);
 		}
 		i++;
 	}
@@ -97,32 +101,25 @@ static char	**get_cmd_paths(char ***cmds, int n_cmds, char *env[])
 	if (!env_paths)
 		return (NULL);
 	cmd_paths = verify_cmd_paths(cmds, env_paths, n_cmds);
-	if (!cmd_paths)
-	{
-		free_array(env_paths);
-		free(env_paths);
-		return (NULL);
-	}
 	free_array(env_paths);
 	free(env_paths);
+	if (!cmd_paths)
+		return (NULL);
 	return (cmd_paths);
 }
 
 /*
  *	Initialize Command and Command path
  */
-int	initial_cmds(t_pipex *pipe, int argc, char *argv[], char *env[])
+int	initial_cmds(t_pipex *pipex, int argc, char *argv[], char *env[])
 {
-	if (!pipe)
+	if (!pipex)
 		return (-1);
-	pipe->cmds = split_cmds(pipe->pipes + 1, argv + 2 + pipe->here_doc);
-	if (!pipe->cmds)
+	pipex->cmds = split_cmds(pipex->pipes + 1, argv + 2 + pipex->here_doc);
+	if (!pipex->cmds)
 		return (-1);
-	pipe->cmd_paths = get_cmd_paths(pipe->cmds, pipe->pipes + 1, env);
-	if (!pipe->cmd_paths)
-	{
-		free_2d_array(pipe->cmds);
+	pipex->cmd_paths = get_cmd_paths(pipex->cmds, pipex->pipes + 1, env);
+	if (!pipex->cmd_paths)
 		return (-1);
-	}
 	return (0);
 }
