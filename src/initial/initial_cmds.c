@@ -6,7 +6,7 @@
 /*   By: atkaewse <atkaewse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 11:56:11 by atkaewse          #+#    #+#             */
-/*   Updated: 2024/12/14 11:01:02 by atkaewse         ###   ########.fr       */
+/*   Updated: 2024/12/14 11:43:33 by atkaewse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ static char	**verify_cmd_paths(char ***cmds, char **env_paths, int n_cmds)
 		cmd_paths[i] = try_access(env_paths, cmds[i][0]);
 		if (!cmd_paths[i])
 		{
+			free_array(cmd_paths);
 			free(cmd_paths);
 			return (NULL);
 		}
