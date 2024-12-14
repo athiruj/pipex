@@ -6,7 +6,7 @@
 /*   By: atkaewse <atkaewse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 00:03:42 by atkaewse          #+#    #+#             */
-/*   Updated: 2024/12/14 11:10:02 by atkaewse         ###   ########.fr       */
+/*   Updated: 2024/12/14 11:55:10 by atkaewse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	initial_pipes(t_pipex *pipex, int argc)
 		return (-1);
 	pipex->pipe_fds = (int **)malloc(sizeof(int *) * (pipex->pipes + 1));
 	if (!pipex->pipe_fds)
-		return (-1);
+		return (ft_puterror(PROGRAM, NULL, errno));
 	i = 0;
 	while (i < pipex->pipes)
 	{
@@ -31,10 +31,10 @@ int	initial_pipes(t_pipex *pipex, int argc)
 		if (!pipex->pipe_fds[i])
 		{
 			free(pipex->pipe_fds);
-			return (-1);
+			return (ft_puterror(PROGRAM, NULL, errno));
 		}
 		if (pipe(pipex->pipe_fds[i]) == -1)
-			return (-1);
+			return (ft_puterror(PROGRAM, NULL, errno));
 		i++;
 	}
 	return (0);

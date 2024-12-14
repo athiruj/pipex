@@ -6,7 +6,7 @@
 /*   By: atkaewse <atkaewse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 10:47:44 by atkaewse          #+#    #+#             */
-/*   Updated: 2024/12/13 23:50:01 by atkaewse         ###   ########.fr       */
+/*   Updated: 2024/12/14 11:57:02 by atkaewse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static char	*read_here_doc(const char *eof)
 	{
 		write(1, "pipex heredoc> ", 15);
 		tmp_here_doc = get_next_line(0);
-		while ((ft_strcmp(tmp_line, eof) != '\n')
+		while (tmp_line && (ft_strcmp(tmp_line, eof) != '\n')
 			&& (ft_strcmp(tmp_here_doc, eof) != '\n'))
 		{
 			here_doc_str = ft_strjoin(tmp_here_doc, tmp_line);

@@ -1,31 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_puterror.c                                      :+:      :+:    :+:   */
+/*   pipex_process.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: atkaewse <atkaewse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/06 08:19:54 by atkaewse          #+#    #+#             */
-/*   Updated: 2024/12/14 11:54:45 by atkaewse         ###   ########.fr       */
+/*   Created: 2024/12/14 12:10:09 by atkaewse          #+#    #+#             */
+/*   Updated: 2024/12/14 12:11:27 by atkaewse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/pipex.h"
 
-int	ft_puterror(char *program, char *target, int err_no)
+int	pipex_process(t_pipex *pipex)
 {
-	if (program)
-	{
-		ft_putstr_fd(program, 2);
-		write(2, ": ", 2);
-	}
-	if (err_no)
-		ft_putstr_fd(strerror(err_no), 2);
-	if (target)
-	{
-		write(2, ": ", 2);
-		ft_putstr_fd(target, 2);
-	}
-	write(2, "\n", 1);
-	return (-1);
+	return (0);
 }
