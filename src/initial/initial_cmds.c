@@ -6,7 +6,7 @@
 /*   By: atkaewse <atkaewse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 11:56:11 by atkaewse          #+#    #+#             */
-/*   Updated: 2024/12/14 12:17:12 by atkaewse         ###   ########.fr       */
+/*   Updated: 2024/12/16 15:38:59 by atkaewse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,10 +116,10 @@ int	initial_cmds(t_pipex *pipex, int argc, char *argv[], char *env[])
 {
 	if (!pipex)
 		return (-1);
-	pipex->cmds = split_cmds(pipex->pipes + 1, argv + 2 + pipex->here_doc);
+	pipex->cmds = split_cmds(pipex->process + 1, argv + 2 + pipex->here_doc);
 	if (!pipex->cmds)
 		return (-1);
-	pipex->cmd_paths = get_cmd_paths(pipex->cmds, pipex->pipes + 1, env);
+	pipex->cmd_paths = get_cmd_paths(pipex->cmds, pipex->process + 1, env);
 	if (!pipex->cmd_paths)
 		return (-1);
 	return (0);
