@@ -6,7 +6,7 @@
 /*   By: atkaewse <atkaewse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 10:28:41 by atkaewse          #+#    #+#             */
-/*   Updated: 2024/12/18 15:55:35 by atkaewse         ###   ########.fr       */
+/*   Updated: 2024/12/26 23:18:27 by atkaewse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,13 +46,11 @@ int	pipex(int argc, char *argv[], char *env[])
 	t_pipex	pipex;
 
 	if (initial_pipex(&pipex, argc, argv, env))
-		if (errno > 0)
-			return (ft_puterror(PROGRAM, NULL, errno));
+		return (ft_puterror(PROGRAM, NULL, errno));
 	display(&pipex);
-	if (pipex_process(&pipex, env))
-		if (errno > 0)
-			return (ft_puterror(PROGRAM, NULL, errno));
-	free_pipex(&pipex);
+	// if (pipex_process(&pipex, env))
+	// 	return (ft_puterror(PROGRAM, NULL, errno));
+	// free_pipex(&pipex);
 	return (0);
 }
 

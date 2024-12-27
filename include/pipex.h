@@ -6,7 +6,7 @@
 /*   By: atkaewse <atkaewse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 10:28:35 by atkaewse          #+#    #+#             */
-/*   Updated: 2024/12/14 12:08:48 by atkaewse         ###   ########.fr       */
+/*   Updated: 2024/12/24 14:41:35 by atkaewse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <limits.h>
+# include <string.h>
 # include <sys/wait.h>
 # include <sys/types.h>
-# include <string.h>
 # include <sys/errno.h>
 
 # include "../submodule/libft/libft.h"
@@ -32,7 +32,7 @@ typedef struct s_pipex
 {
 	int		io_fds[2];
 	int		**pipe_fds;
-	int		pipes;
+	int		process;
 	char	***cmds;
 	char	**cmd_paths;
 	t_bool	here_doc;
@@ -44,10 +44,14 @@ int		initial_pipex(t_pipex *pipex, int argc, char *argv[], char *env[]);
 int		initial_io(t_pipex *pipex, int argc, char *argv[]);
 int		initial_cmds(t_pipex *pipex, int argc, char *argv[], char *env[]);
 int		initial_pipes(t_pipex *pipex, int argc);
-
-int		pipex_process(t_pipex *pipex);
-
 char	*try_access(char **env, char *cmd);
+
+int		pipex_process(t_pipex *pipex, char **env);
+int		prepare_io_pipes(t_pipex *pipex, int idx);
+
+int		close_all_fds(t_pipex *pipex);
+int		close_fds(t_pipex *pipex, int idx);
+int		close_except_fds(t_pipex *pipex, int idx);
 int		free_pipex(t_pipex *pipex);
 int		free_iarray(int **arr);
 int		free_array(char **arr);

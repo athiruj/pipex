@@ -6,7 +6,7 @@
 /*   By: atkaewse <atkaewse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 10:47:44 by atkaewse          #+#    #+#             */
-/*   Updated: 2024/12/14 11:57:02 by atkaewse         ###   ########.fr       */
+/*   Updated: 2024/12/26 15:57:18 by atkaewse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static char	*read_here_doc(const char *eof)
 {
 	char	*here_doc_str;
-	char	*tmp_here_doc;
+	// char	*tmp_here_doc;
 	char	*tmp_line;
 
 	write(1, "pipex heredoc> ", 15);
@@ -23,20 +23,20 @@ static char	*read_here_doc(const char *eof)
 	if (ft_strcmp(tmp_line, eof) != '\n')
 	{
 		write(1, "pipex heredoc> ", 15);
-		tmp_here_doc = get_next_line(0);
-		while (tmp_line && (ft_strcmp(tmp_line, eof) != '\n')
-			&& (ft_strcmp(tmp_here_doc, eof) != '\n'))
+		here_doc_str = ft_strdup(tmp_line);
+		free(tmp_line);
+		tmp_line = get_next_line(0);
+		while (tmp_line && (ft_strcmp(tmp_line, eof) != '\n'))
 		{
-			here_doc_str = ft_strjoin(tmp_here_doc, tmp_line);
+			ft_strcat(here_doc_str, tmp_line);
 			free(tmp_line);
-			free(tmp_here_doc);
-			tmp_here_doc = here_doc_str;
 			write(1, "pipex heredoc> ", 15);
 			tmp_line = get_next_line(0);
+			// free(tmp_line);
 		}
-		free(tmp_here_doc);
 	}
 	free(tmp_line);
+	// free(here_doc_str);
 	return (here_doc_str);
 }
 
@@ -76,6 +76,7 @@ static int	pipe_io_here_doc(char *eof, char *outfile, int fds[2])
 	if (tmp_here_doc)
 		write(tmp_io[1], tmp_here_doc, ft_strlen(tmp_here_doc));
 	close(tmp_io[1]);
+	free(tmp_here_doc);
 	fds[1] = open(outfile, O_CREAT | O_WRONLY | O_TRUNC, \
 	S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
 	if (fds[1] == -1)

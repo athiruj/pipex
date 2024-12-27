@@ -6,12 +6,27 @@
 /*   By: atkaewse <atkaewse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 15:44:00 by atkaewse          #+#    #+#             */
-/*   Updated: 2024/12/18 10:27:58 by atkaewse         ###   ########.fr       */
+/*   Updated: 2024/12/24 14:47:06 by atkaewse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/pipex.h"
 
+
+int	close_all_fds(t_pipex *pipex)
+{
+	int	i;
+
+	i = 0;
+	close(pipex->io_fds[0]);
+	close(pipex->io_fds[1]);
+	while (i < pipex->process)
+	{
+		close(pipex->pipe_fds[i][0]);
+		close(pipex->pipe_fds[i++][1]);
+	}
+	return (0);
+}
 /*
  *	Close file descripter idex
  */

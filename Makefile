@@ -59,9 +59,9 @@ UTIL_DIR		=		$(SRC_DIR)utils/
 UTIL_OBJ_DIR	=		$(OBJS_DIR)$(UTIL_DIR)
 
 UTIL_FILES		=		ft_puterror.c \
-						try_access.c \
 						free_pipex.c \
-						free_array.c
+						free_array.c \
+						close_fds.c
 
 UTIL_DIR_FILES	=		$(addprefix $(UTIL_DIR), $(UTIL_FILES))
 UTIL_OBJ_FILES	=		$(addprefix $(OBJS_DIR), $(UTIL_DIR_FILES:.c=.o))
@@ -74,6 +74,7 @@ INIT_OBJ_DIR	=		$(OBJS_DIR)$(INIT_DIR)
 INIT_FILES		=		initial_pipex.c \
 						initial_io.c \
 						initial_cmds.c \
+						try_access.c \
 						initial_pipes.c
 
 INIT_DIR_FILES	=		$(addprefix $(INIT_DIR), $(INIT_FILES))
@@ -116,7 +117,7 @@ $(NAME): $(OBJS_DIRS) $(SUBMD) $(ALL_OBJS) Makefile
 $(OBJS_DIRS):
 	@mkdir -p $@
 
-$(LIBFT):
+$(LIBFT): $(LIB_DIR)
 	@make --no-print-directory -C $(LIB_DIR)
 
 $(GNL): $(GNL_OBJ_FILES)
