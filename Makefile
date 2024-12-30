@@ -93,14 +93,14 @@ PROC_OBJ_FILES	=		$(addprefix $(OBJS_DIR), $(PROC_DIR_FILES:.c=.o))
 # ==== ALL ===============================================
 
 ALL_OBJ_DIR		=		$(SRC_OBJ_DIR) \
-						$(UTIL_OBJ_DIR) \
-						$(INIT_OBJ_DIR) \
-						$(PROC_OBJ_DIR)
+# 						$(UTIL_OBJ_DIR) \
+# 						$(INIT_OBJ_DIR) \
+# 						$(PROC_OBJ_DIR)
 
 ALL_OBJS		=		$(SRC_OBJ_FILES) \
-						$(UTIL_OBJ_FILES) \
-						$(INIT_OBJ_FILES) \
-						$(PROC_OBJ_FILES)
+						# $(UTIL_OBJ_FILES) \
+						# $(INIT_OBJ_FILES) \
+						# $(PROC_OBJ_FILES)
 
 COLOUR_GREEN	=		\033[0;32m
 COLOUR_RED		=		\033[0;31m
