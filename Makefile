@@ -68,14 +68,14 @@ UTIL_OBJ_FILES	=		$(addprefix $(OBJS_DIR), $(UTIL_DIR_FILES:.c=.o))
 
 # ---- Source Initial -------------------------------------
 
-INIT_DIR		=		$(SRC_DIR)initial/
+INIT_DIR		=		$(SRC_DIR)initialize/
 INIT_OBJ_DIR	=		$(OBJS_DIR)$(INIT_DIR)
 
-INIT_FILES		=		initial_pipex.c \
-						initial_io.c \
-						initial_cmds.c \
-						try_access.c \
-						initial_pipes.c
+INIT_FILES		=		initialize_pipex.c \
+						initialize_fds.c \
+						# initial_cmds.c/ \
+						# try_access.c \
+						# initial_pipes.c
 
 INIT_DIR_FILES	=		$(addprefix $(INIT_DIR), $(INIT_FILES))
 INIT_OBJ_FILES	=		$(addprefix $(OBJS_DIR), $(INIT_DIR_FILES:.c=.o))
@@ -93,13 +93,13 @@ PROC_OBJ_FILES	=		$(addprefix $(OBJS_DIR), $(PROC_DIR_FILES:.c=.o))
 # ==== ALL ===============================================
 
 ALL_OBJ_DIR		=		$(SRC_OBJ_DIR) \
+						$(INIT_OBJ_DIR) \
 # 						$(UTIL_OBJ_DIR) \
-# 						$(INIT_OBJ_DIR) \
 # 						$(PROC_OBJ_DIR)
 
 ALL_OBJS		=		$(SRC_OBJ_FILES) \
+						$(INIT_OBJ_FILES) \
 						# $(UTIL_OBJ_FILES) \
-						# $(INIT_OBJ_FILES) \
 						# $(PROC_OBJ_FILES)
 
 COLOUR_GREEN	=		\033[0;32m

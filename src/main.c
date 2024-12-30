@@ -6,7 +6,7 @@
 /*   By: atkaewse <atkaewse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 11:11:32 by atkaewse          #+#    #+#             */
-/*   Updated: 2024/12/30 13:47:26 by atkaewse         ###   ########.fr       */
+/*   Updated: 2024/12/30 20:48:40 by atkaewse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ int	main(int argc, char *argv[], char *env[])
 ... [commandN] <destination_file>", 2);
 		return (EINVAL);
 	}
-	pipex(argc, argv, env);
+	if (pipex(argc, argv, env))
+		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }

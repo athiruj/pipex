@@ -6,7 +6,7 @@
 /*   By: atkaewse <atkaewse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 10:28:41 by atkaewse          #+#    #+#             */
-/*   Updated: 2024/12/30 13:36:51 by atkaewse         ###   ########.fr       */
+/*   Updated: 2024/12/30 22:27:10 by atkaewse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,11 +45,18 @@ int	pipex(int argc, char *argv[], char *env[])
 {
 	t_pipex	pipex;
 
-	// if (initial_pipex(&pipex, argc, argv, env))
-		// return (1);
+	printf("pipex: %p %lu\n", &pipex, sizeof(pipex));
+	printf("infile_fd: %p %lu\n", &pipex.infile_fd, sizeof(pipex.infile_fd));
+	printf("outfile_fd: %p %lu\n", &pipex.outfile_fd, sizeof(pipex.outfile_fd));
+	printf("pipe_fds: %p %lu\n", &pipex.pipe_fds, sizeof(pipex.pipe_fds));
+	printf("cmd_count: %p %lu\n", &pipex.cmd_count, sizeof(pipex.cmd_count));
+	printf("cmd_paths: %p %lu\n", &pipex.cmd_paths, sizeof(pipex.cmd_paths));
+	printf("cmd_args: %p %lu\n", &pipex.cmd_args, sizeof(pipex.cmd_args));
+	if (initialize_pipex(&pipex, argc, argv, env))
+		return (EXIT_FAILURE);
 	// display(&pipex);
 	// if (pipex_process(&pipex, env))
 	// 	return (ft_puterror(PROGRAM, NULL, errno));
 	// free_pipex(&pipex);
-	return (0);
+	return (EXIT_SUCCESS);
 }

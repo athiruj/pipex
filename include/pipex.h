@@ -6,7 +6,7 @@
 /*   By: atkaewse <atkaewse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 10:28:35 by atkaewse          #+#    #+#             */
-/*   Updated: 2024/12/30 13:50:49 by atkaewse         ###   ########.fr       */
+/*   Updated: 2024/12/30 22:30:29 by atkaewse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,17 @@ typedef struct s_pipex
 {
 	int		infile_fd;
 	int		outfile_fd;
-	int		*pipe_fds[2];
+	int		**pipe_fds;
 	int		cmd_count;
 	char	**cmd_paths;
 	char	***cmd_args;
-	int		is_here_doc;
 }	t_pipex;
 
 int		pipex(int argc, char *argv[], char *env[]);
+
+int		initialize_pipex(t_pipex *pipex, int argc, char **argv, char **env);
+int		initialize_fds(int *infile, int *outfile, int argc, char **argv);
+// int		initialize_cmds(t_pipex *pipex, char **argv);
+// int		initialize_pipes(t_pipex *pipex, char **argv);
 
 #endif
