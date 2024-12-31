@@ -1,31 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   initialize_pipex.c                                 :+:      :+:    :+:   */
+/*   setup_io_fds.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: atkaewse <atkaewse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/07 10:51:16 by atkaewse          #+#    #+#             */
-/*   Updated: 2024/12/31 15:43:45 by atkaewse         ###   ########.fr       */
+/*   Created: 2024/12/07 10:47:44 by atkaewse          #+#    #+#             */
+/*   Updated: 2024/12/31 23:34:11 by atkaewse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/pipex.h"
 
-int	initialize_pipex(t_pipex *pipex, int argc, char **argv, char **env)
+/*
+ *	setup_io_fds() set up in/out file descriptor
+ *	Return 0 on success and return 1 when fail
+ */
+int	setup_io_fds(
+	int *infile_fd,
+	int *outfile_fd,
+	char *infile,
+	char *outfile
+	)
 {
-	if (!pipex || !argc || !argv || !env)
-		return (1);
-	pipex->infile_fd = -1;
-	pipex->outfile_fd = -1;
-	pipex->pipe_fds = NULL;
-	if (!ft_strcmp("here_doc", argv[1]))
-		pipex->cmd_count = argc - 5;
-	else
-		pipex->cmd_count = argc - 4;
-	pipex->cmd_paths = NULL;
-	pipex->cmd_args = NULL;
-	if (initialize_fds(&pipex->infile_fd, &pipex->outfile_fd, argc, argv))
+	if (!infile_fd || !outfile_fd || !infile || !outfile)
 		return (1);
 	return (0);
 }

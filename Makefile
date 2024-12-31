@@ -73,6 +73,8 @@ INIT_OBJ_DIR	=		$(OBJS_DIR)$(INIT_DIR)
 
 INIT_FILES		=		initialize_pipex.c \
 						initialize_fds.c \
+						setup_io_fds.c \
+						setup_hdoc_fds.c \
 						# initial_cmds.c/ \
 						# try_access.c \
 						# initial_pipes.c
