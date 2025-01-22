@@ -6,7 +6,7 @@
 /*   By: atkaewse <atkaewse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 10:28:41 by atkaewse          #+#    #+#             */
-/*   Updated: 2024/12/30 22:27:10 by atkaewse         ###   ########.fr       */
+/*   Updated: 2024/12/31 15:43:45 by atkaewse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,10 +53,10 @@ int	pipex(int argc, char *argv[], char *env[])
 	printf("cmd_paths: %p %lu\n", &pipex.cmd_paths, sizeof(pipex.cmd_paths));
 	printf("cmd_args: %p %lu\n", &pipex.cmd_args, sizeof(pipex.cmd_args));
 	if (initialize_pipex(&pipex, argc, argv, env))
-		return (EXIT_FAILURE);
+		return (1);
 	// display(&pipex);
 	// if (pipex_process(&pipex, env))
 	// 	return (ft_puterror(PROGRAM, NULL, errno));
 	// free_pipex(&pipex);
-	return (EXIT_SUCCESS);
+	return (0);
 }

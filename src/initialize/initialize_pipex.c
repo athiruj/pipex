@@ -6,7 +6,7 @@
 /*   By: atkaewse <atkaewse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 10:51:16 by atkaewse          #+#    #+#             */
-/*   Updated: 2024/12/31 15:43:45 by atkaewse         ###   ########.fr       */
+/*   Updated: 2025/01/22 16:05:43 by atkaewse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ int	initialize_pipex(t_pipex *pipex, int argc, char **argv, char **env)
 		pipex->cmd_count = argc - 4;
 	pipex->cmd_paths = NULL;
 	pipex->cmd_args = NULL;
-	if (initialize_fds(&pipex->infile_fd, &pipex->outfile_fd, argc, argv))
+	if (initialize_fds(&pipex->infile_fd, &pipex->outfile_fd, argc, argv)
+		|| initialize_pipe_fds(&pipex->pipe_fds, pipex->cmd_count))
 		return (1);
 	return (0);
 }
