@@ -73,11 +73,11 @@ INIT_OBJ_DIR	=		$(OBJS_DIR)$(INIT_DIR)
 
 INIT_FILES		=		initialize_pipex.c \
 						initialize_fds.c \
+						initialize_pipe_fds.c \
 						setup_io_fds.c \
 						setup_hdoc_fds.c \
 						# initial_cmds.c/ \
 						# try_access.c \
-						# initial_pipes.c
 
 INIT_DIR_FILES	=		$(addprefix $(INIT_DIR), $(INIT_FILES))
 INIT_OBJ_FILES	=		$(addprefix $(OBJS_DIR), $(INIT_DIR_FILES:.c=.o))

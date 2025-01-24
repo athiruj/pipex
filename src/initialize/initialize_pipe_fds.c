@@ -6,54 +6,61 @@
 /*   By: atkaewse <atkaewse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 16:06:34 by atkaewse          #+#    #+#             */
-/*   Updated: 2025/01/22 16:53:21 by atkaewse         ###   ########.fr       */
+/*   Updated: 2025/01/24 15:19:38 by atkaewse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/pipex.h"
 
+static void	free_pipe_fds(int **pipe_fds, int n_pipes);
+
 /*
- *	initialize_pipe_fds() 
- *
+ *	initialize_pipe_fds() set pipes file descriptor
+ *	Return 0 on successed and return 1 when fail
  */
-int	initialize_pipe_fds(int **pipe_fds, int n_pipes)
+int	initialize_pipe_fds(int ***pipe_fds, int n_pipes)
 {
 	int	i;
 
 	if (!pipe_fds || !n_pipes)
 		return (0);
-	pipe_fds = (int **)malloc(sizeof(int *) * n_pipes);
-	if (!pipe_fds)
+	*pipe_fds = (int **)malloc(sizeof(int *) * n_pipes);
+	if (!(*pipe_fds))
 	{
-		perror("pipes allocate failed");
+		perror("Failed to allocate pipe");
 		return (1);
 	}
 	i = 0;
-	while(i < n_pipes)
+	while (i < n_pipes)
 	{
-		pipe_fds[i] = (int *)ft_calloc(2, sizeof(int));
-		if (pipe_fds[i])
+		(*pipe_fds)[i] = (int *)ft_calloc(2, sizeof(int));
+		if (!(*pipe_fds)[i] || pipe((*pipe_fds)[i]) == -1)
 		{
-			perror("pipe allocate failed");
-			free_pipes(pipe_fds, n_pipes);
+			perror("Failed to allocate pipe");
+			free_pipe_fds(*pipe_fds, n_pipes);
 			return (1);
 		}
+		i++;
 	}
 	return (0);
 }
 
-int	free_pipes(int **pipes_fds, int n_pipes)
+/*
+ *	free_pipe_fds() deallocates pipe file descriptor
+ *	Not return
+ */
+static void	free_pipe_fds(int **pipe_fds, int n_pipes)
 {
 	int	i;
 
-	if (!pipes_fds)
-		return (0);
+	if (!pipe_fds)
+		return ;
 	i = 0;
-	while (i < n_pipes)
+	while (i < n_pipes && pipe_fds[i])
 	{
-		if (pipes_fds[i])
-			free(pipes_fds[i]);
+		if (pipe_fds[i])
+			free(pipe_fds[i]);
 		i++;
 	}
-	return (0);
+	free(pipe_fds);
 }
