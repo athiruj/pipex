@@ -6,12 +6,16 @@
 /*   By: atkaewse <atkaewse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 10:51:16 by atkaewse          #+#    #+#             */
-/*   Updated: 2025/01/27 14:14:38 by atkaewse         ###   ########.fr       */
+/*   Updated: 2025/01/28 02:39:48 by atkaewse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/pipex.h"
 
+/*
+ *	initialize_pipex() initialize child of pipex 
+ *	Return 0 on success and return 1 when fail
+ */
 int	initialize_pipex(t_pipex *pipex, int argc, char **argv, char **env)
 {
 	int	hdoc;
@@ -33,7 +37,7 @@ int	initialize_pipex(t_pipex *pipex, int argc, char **argv, char **env)
 		|| initialize_cmd_paths(&(pipex->cmd_paths), pipex->cmd_args,
 			pipex->cmd_count, env))
 	{
-		// free all here
+		free_pipex(pipex);
 		return (1);
 	}
 	return (0);

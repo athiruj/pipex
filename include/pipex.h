@@ -6,7 +6,7 @@
 /*   By: atkaewse <atkaewse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 10:28:35 by atkaewse          #+#    #+#             */
-/*   Updated: 2025/01/27 14:12:18 by atkaewse         ###   ########.fr       */
+/*   Updated: 2025/01/28 02:19:49 by atkaewse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,8 @@ int		setup_io_fds(
 			char *outfile
 			);
 
+void	free_pipex(t_pipex *pipex);
 void	free_pipe_fds(int **pipe_fds);
 void	free_cmd_args(char ***cmd_args);
 void	free_cmd_paths(char **cmd_paths);
-
 #endif

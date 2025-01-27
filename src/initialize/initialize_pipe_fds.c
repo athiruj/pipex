@@ -6,7 +6,7 @@
 /*   By: atkaewse <atkaewse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 16:06:34 by atkaewse          #+#    #+#             */
-/*   Updated: 2025/01/27 14:04:46 by atkaewse         ###   ########.fr       */
+/*   Updated: 2025/01/28 02:36:29 by atkaewse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 /*
  *	initialize_pipe_fds() set pipes file descriptor
- *	Return 0 on successed and return 1 when fail
+ *	Return 0 on success and return 1 when fail
  */
 int	initialize_pipe_fds(int ***pipe_fds, int n_pipes)
 {

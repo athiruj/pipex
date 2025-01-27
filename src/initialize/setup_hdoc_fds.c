@@ -6,7 +6,7 @@
 /*   By: atkaewse <atkaewse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 10:47:44 by atkaewse          #+#    #+#             */
-/*   Updated: 2024/12/31 23:41:40 by atkaewse         ###   ########.fr       */
+/*   Updated: 2025/01/28 02:37:13 by atkaewse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	setup_hdoc_fds(
 
 /*
  *	prepare_hdoc() prepare file descriptor for here_doc and store in fd
- *	Return file desscriptor and return -1 when fail
+ *	Return file descriptor and return -1 when fail
  */
 static int	prepare_hdoc(int *fd, char *eof)
 {
@@ -78,7 +78,7 @@ static int	prepare_hdoc(int *fd, char *eof)
 }
 
 /*
- *	read_hdxoc() read line by line use get_next_line()
+ *	read_hdoc() read line by line use get_next_line()
  *	Return address of char from here_doc and return NULL when fail
  */
 char	*read_hdoc(char *eof)
