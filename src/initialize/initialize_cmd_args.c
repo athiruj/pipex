@@ -6,7 +6,7 @@
 /*   By: atkaewse <atkaewse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 16:16:27 by atkaewse          #+#    #+#             */
-/*   Updated: 2025/01/26 17:00:35 by atkaewse         ###   ########.fr       */
+/*   Updated: 2025/01/27 14:08:18 by atkaewse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,22 +44,4 @@ int	initialize_cmd_args(char ****cmd_args, int cmd_count, char **argv, int hdoc)
 		i++;
 	}
 	return (0);
-}
-
-void	free_cmd_args(char ***cmd_args)
-{
-	int	i;
-	int	j;
-
-	if (!cmd_args)
-		return ;
-	i = 0;
-	while (cmd_args[i])
-	{
-		j = 0;
-		while (cmd_args[i][j])
-			free(cmd_args[i][j++]);
-		free(cmd_args[i++]);
-	}
-	free(cmd_args);
 }
