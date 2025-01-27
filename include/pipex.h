@@ -6,7 +6,7 @@
 /*   By: atkaewse <atkaewse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 10:28:35 by atkaewse          #+#    #+#             */
-/*   Updated: 2025/01/26 17:03:58 by atkaewse         ###   ########.fr       */
+/*   Updated: 2025/01/27 14:12:18 by atkaewse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,8 @@ int		initialize_cmd_args(
 			int hdoc
 			);
 int		initialize_cmd_paths(
-			char ***cmd_path,
-			char ****cmd_args,
+			char ***cmd_paths,
+			char ***cmd_args,
 			int cmd_count,
 			char **env
 			);
@@ -68,6 +68,6 @@ int		setup_io_fds(
 
 void	free_pipe_fds(int **pipe_fds);
 void	free_cmd_args(char ***cmd_args);
-// int		initialize_pipes(t_pipex *pipex, char **argv);
+void	free_cmd_paths(char **cmd_paths);
 
 #endif

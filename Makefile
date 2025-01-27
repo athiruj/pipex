@@ -78,7 +78,7 @@ INIT_FILES		=		initialize_pipex.c \
 						initialize_cmd_paths.c \
 						setup_io_fds.c \
 						setup_hdoc_fds.c \
-						# try_access.c \
+						free_initialize.c
 
 INIT_DIR_FILES	=		$(addprefix $(INIT_DIR), $(INIT_FILES))
 INIT_OBJ_FILES	=		$(addprefix $(OBJS_DIR), $(INIT_DIR_FILES:.c=.o))
