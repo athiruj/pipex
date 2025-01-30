@@ -47,8 +47,7 @@ HEADER_DIR		=	 	include/
 SRC_DIR			=		src/
 SRC_OBJ_DIR		=		$(OBJS_DIR)$(SRC_DIR)
 
-SRC_FILE		=		main.c \
-						pipex.c
+SRC_FILE		=		pipex.c
 
 SRC_DIR_FILES	=		$(addprefix $(SRC_DIR), $(SRC_FILE))
 SRC_OBJ_FILES	=		$(addprefix $(OBJS_DIR), $(SRC_DIR_FILES:.c=.o))
@@ -85,25 +84,23 @@ INIT_OBJ_FILES	=		$(addprefix $(OBJS_DIR), $(INIT_DIR_FILES:.c=.o))
 
 # ---- Source Processer -------------------------------------
 
-PROC_DIR		=		$(SRC_DIR)process/
-PROC_OBJ_DIR	=		$(OBJS_DIR)$(PROC_DIR)
+EXEC_DIR		=		$(SRC_DIR)execute/
+EXEC_OBJ_DIR	=		$(OBJS_DIR)$(EXEC_DIR)
 
-PROC_FILES		=		pipex_process.c
+EXEC_FILES		=		execute_pipex.c
 
-PROC_DIR_FILES	=		$(addprefix $(PROC_DIR), $(PROC_FILES))
-PROC_OBJ_FILES	=		$(addprefix $(OBJS_DIR), $(PROC_DIR_FILES:.c=.o))
+EXEC_DIR_FILES	=		$(addprefix $(EXEC_DIR), $(EXEC_FILES))
+EXEC_OBJ_FILES	=		$(addprefix $(OBJS_DIR), $(EXEC_DIR_FILES:.c=.o))
 
 # ==== ALL ===============================================
 
 ALL_OBJ_DIR		=		$(SRC_OBJ_DIR) \
 						$(INIT_OBJ_DIR) \
-# 						$(UTIL_OBJ_DIR) \
-# 						$(PROC_OBJ_DIR)
+						$(EXEC_OBJ_DIR)
 
 ALL_OBJS		=		$(SRC_OBJ_FILES) \
 						$(INIT_OBJ_FILES) \
-						# $(UTIL_OBJ_FILES) \
-						# $(PROC_OBJ_FILES)
+						$(EXEC_OBJ_FILES)
 
 COLOUR_GREEN	=		\033[0;32m
 COLOUR_RED		=		\033[0;31m
@@ -115,7 +112,7 @@ all: $(NAME)
 
 $(NAME): $(OBJS_DIRS) $(SUBMD) $(ALL_OBJS) Makefile
 	$(CC) $(CCFLAGS) -I $(HEADER_DIR) $(LIBFT) $(GNL) -o $@ $(ALL_OBJS)
-	@printf "$(COLOUR_GREEN)Complie $@ Completed!!!\n$(COLOUR_END)"
+# @printf "$(COLOUR_GREEN)Complie $@ Completed!!!\n$(COLOUR_END)"
 
 $(OBJS_DIRS):
 	@mkdir -p $@
@@ -125,7 +122,7 @@ $(LIBFT): $(LIB_DIR)
 
 $(GNL): $(GNL_OBJ_FILES)
 	$(AR) $@ $?
-	@printf "$(COLOUR_GREEN)Complie Get_next_line Completed!!!\n$(COLOUR_END)"
+# @printf "$(COLOUR_GREEN)Complie Get_next_line Completed!!!\n$(COLOUR_END)"
 
 $(GNL_OBJ_DIR)%.o: $(GNL_DIR)%.c $(GNL_DIR_HEADER)
 	$(CC) $(CCFLAGS) -I $(GNL_DIR_HEADER) -c $< -o $@
@@ -142,12 +139,12 @@ bonus: all
 clean:
 	@make clean -C $(LIB_DIR)
 	$(RM) $(OBJS_DIR)
-	@printf "$(COLOUR_RED)Remove Objects Completed\n$(COLOUR_END)"
+#@printf "$(COLOUR_RED)Remove Objects Completed\n$(COLOUR_END)"
 
 fclean: clean
 	@make fclean -C $(LIB_DIR)
 	$(RM) $(GNL)
-	@printf "$(COLOUR_RED)Remove Get_next_line Completed\n$(COLOUR_END)"
+#@printf "$(COLOUR_RED)Remove Get_next_line Completed\n$(COLOUR_END)"
 	$(RM) $(NAME)
 	@printf "$(COLOUR_RED)Remove pipex Completed\n$(COLOUR_END)"
 	

@@ -78,13 +78,7 @@ BONUSOBJS	=	$(BONUSFILE:.c=.o)
 HEADER 		= 	libft.h
 NAME 		=	libft.a
 
-COLOUR_GREEN=	\033[0;32m
-COLOUR_RED	=	\033[0;31m
-COLOUR_BLUE	=	\033[0;34m
-COLOUR_END	=	\033[0m
-
 all:	$(NAME)
-	@printf "$(COLOUR_GREEN)Complie Libft Completed!!!\n$(COLOUR_END)"
 
 $(NAME): $(OBJS)
 	$(AR) $@ $(OBJS)
@@ -100,10 +94,7 @@ clean:
 
 fclean: clean
 	$(RM) $(NAME)
-	@printf "$(COLOUR_RED)Remove Libft Completed\n$(COLOUR_END)"
 
 re: clean all
 
 .PHONY: all clean fclean re
-
-.SILENT: $(OBJS) $(NAME) clean fclean
