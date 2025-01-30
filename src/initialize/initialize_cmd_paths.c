@@ -6,7 +6,7 @@
 /*   By: atkaewse <atkaewse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 15:28:36 by atkaewse          #+#    #+#             */
-/*   Updated: 2025/01/28 02:36:17 by atkaewse         ###   ########.fr       */
+/*   Updated: 2025/01/30 14:19:48 by atkaewse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,5 +145,8 @@ static void	free_env_path(char **env_path)
 	if (!env_path)
 		return ;
 	while (*env_path)
-		free(*env_path++);
+	{
+		free(*env_path);
+		*env_path++ = NULL;
+	}
 }
