@@ -6,7 +6,7 @@
 /*   By: atkaewse <atkaewse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 15:28:36 by atkaewse          #+#    #+#             */
-/*   Updated: 2025/01/30 14:19:48 by atkaewse         ###   ########.fr       */
+/*   Updated: 2025/01/31 12:09:34 by atkaewse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,11 @@ static int	try_access(char **cmd_path, char *cmd, char **env_path)
 		}
 		free(tmp_path);
 	}
-	perror("Failed to access command");
+	ft_putstr_fd("Command not found: ", STDERR_FILENO);
+	ft_putstr_fd(strerror(errno), STDERR_FILENO);
+	ft_putstr_fd(": ", STDERR_FILENO);
+	ft_putstr_fd(cmd, STDERR_FILENO);
+	ft_putstr_fd("\n", STDERR_FILENO);
 	return (1);
 }
 

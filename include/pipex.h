@@ -6,7 +6,7 @@
 /*   By: atkaewse <atkaewse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 10:28:35 by atkaewse          #+#    #+#             */
-/*   Updated: 2025/01/31 02:02:43 by atkaewse         ###   ########.fr       */
+/*   Updated: 2025/01/31 13:55:23 by atkaewse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,14 @@
 # include "../submodule/libft/libft.h"
 # include "../submodule/get_next_line/get_next_line.h"
 
+/*
+ * infile_fd -> input file descriptor
+ * outfile_fd -> output file descriptor
+ * pipe_fds -> a set of pipe file descriptors
+ * cmd_count -> number of command (not a number of process)
+ * cmd_paths -> a set of command paths
+ * cmd_args -> a set of command arguments
+ */
 typedef struct s_pipex
 {
 	int		infile_fd;
@@ -39,6 +47,8 @@ typedef struct s_pipex
 int		pipex(int argc, char **argv, char **env);
 
 int		execute_pipex(t_pipex *pipex, char **env);
+int		fork_n_execute(pid_t *pids, t_pipex *pipex, char **env);
+int		close_pipe_fds(int *pipe_fds);
 
 int		initialize_pipex(t_pipex *pipex, int argc, char **argv, char **env);
 int		initialize_pipe_fds(int ***pipe_fds, int n_pipes);
