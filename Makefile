@@ -52,19 +52,6 @@ SRC_FILE		=		pipex.c
 SRC_DIR_FILES	=		$(addprefix $(SRC_DIR), $(SRC_FILE))
 SRC_OBJ_FILES	=		$(addprefix $(OBJS_DIR), $(SRC_DIR_FILES:.c=.o))
 
-# ---- Source Utils ----------------------------------------
-
-UTIL_DIR		=		$(SRC_DIR)utils/
-UTIL_OBJ_DIR	=		$(OBJS_DIR)$(UTIL_DIR)
-
-UTIL_FILES		=		ft_puterror.c \
-						free_pipex.c \
-						free_array.c \
-						close_fds.c
-
-UTIL_DIR_FILES	=		$(addprefix $(UTIL_DIR), $(UTIL_FILES))
-UTIL_OBJ_FILES	=		$(addprefix $(OBJS_DIR), $(UTIL_DIR_FILES:.c=.o))
-
 # ---- Source Initial -------------------------------------
 
 INIT_DIR		=		$(SRC_DIR)initialize/
@@ -84,23 +71,25 @@ INIT_OBJ_FILES	=		$(addprefix $(OBJS_DIR), $(INIT_DIR_FILES:.c=.o))
 
 # ---- Source Processer -------------------------------------
 
-EXEC_DIR		=		$(SRC_DIR)execute/
-EXEC_OBJ_DIR	=		$(OBJS_DIR)$(EXEC_DIR)
+PROC_DIR		=		$(SRC_DIR)process/
+PROC_OBJ_DIR	=		$(OBJS_DIR)$(PROC_DIR)
 
-EXEC_FILES		=		execute_pipex.c
+PROC_FILES		=		process_pipex.c \
+						close_fds.c \
+						fork_n_execute.c
 
-EXEC_DIR_FILES	=		$(addprefix $(EXEC_DIR), $(EXEC_FILES))
-EXEC_OBJ_FILES	=		$(addprefix $(OBJS_DIR), $(EXEC_DIR_FILES:.c=.o))
+PROC_DIR_FILES	=		$(addprefix $(PROC_DIR), $(PROC_FILES))
+PROC_OBJ_FILES	=		$(addprefix $(OBJS_DIR), $(PROC_DIR_FILES:.c=.o))
 
 # ==== ALL ===============================================
 
 ALL_OBJ_DIR		=		$(SRC_OBJ_DIR) \
 						$(INIT_OBJ_DIR) \
-						$(EXEC_OBJ_DIR)
+						$(PROC_OBJ_DIR)
 
 ALL_OBJS		=		$(SRC_OBJ_FILES) \
 						$(INIT_OBJ_FILES) \
-						$(EXEC_OBJ_FILES)
+						$(PROC_OBJ_FILES)
 
 COLOUR_GREEN	=		\033[0;32m
 COLOUR_RED		=		\033[0;31m

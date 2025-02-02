@@ -6,31 +6,39 @@
 /*   By: atkaewse <atkaewse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 13:23:36 by atkaewse          #+#    #+#             */
-/*   Updated: 2025/01/31 13:49:35 by atkaewse         ###   ########.fr       */
+/*   Updated: 2025/02/02 15:57:36 by atkaewse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/pipex.h"
 
-void check_fd(int *fd, int n) {
-	int i = 0;
-	while (i < n)
-	{
-    	if (fcntl(fd[i], F_GETFD) > 0) {
-        	printf("File descriptor %d is still open.\n", fd[i]);
-    	} else {
-        	printf("File descriptor %d is closed.\n", fd[i]);
-    	}
-		i++;
-	}
-}
-
 static int	prepare_pipes(t_pipex *pipex, int i_pipe);
+
+static int	execute_cmd(t_pipex *pipex, char **env, int n_pipe);
 
 int	fork_n_execute(pid_t *pids, t_pipex *pipex, char **env)
 {
 	pid_t	pid;
+	int		i;
 
+	i = 0;
+	while (i < pipex->cmd_count)
+	{
+		pid = fork();
+		if (pid == 0)
+		{
+			if (execute_cmd(pipex, env, i))
+				return (1);
+		}
+		else if (pid > 0)
+			pids[i] = pid;
+		else
+		{
+			perror("Failed to fork");
+			return (1);
+		}
+		i++;
+	}
 	return (0);
 }
 
@@ -56,4 +64,22 @@ static int	prepare_pipes(t_pipex *pipex, int i_pipe)
 	}
 	perror("Failed to duplicate file descriptor");
 	return (-1);
+}
+
+static int	execute_cmd(t_pipex *pipex, char **env, int n_pipe)
+{
+	if (!pipex
+		|| prepare_pipes(pipex, n_pipe)
+		|| close_all_fds(
+			&pipex->infile_fd,
+			&pipex->outfile_fd,
+			pipex->pipe_fds,
+			pipex->cmd_count - 1))
+		return (1);
+	if (execve(pipex->cmd_paths[n_pipe], pipex->cmd_args[n_pipe], env) == -1)
+	{
+		perror("Failed to execute the program");
+		return (1);
+	}
+	return (0);
 }

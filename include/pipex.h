@@ -6,7 +6,7 @@
 /*   By: atkaewse <atkaewse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 10:28:35 by atkaewse          #+#    #+#             */
-/*   Updated: 2025/01/31 13:55:23 by atkaewse         ###   ########.fr       */
+/*   Updated: 2025/02/02 15:54:18 by atkaewse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,13 @@ typedef struct s_pipex
 
 int		pipex(int argc, char **argv, char **env);
 
-int		execute_pipex(t_pipex *pipex, char **env);
+int		process_pipex(t_pipex *pipex, char **env);
 int		fork_n_execute(pid_t *pids, t_pipex *pipex, char **env);
-int		close_pipe_fds(int *pipe_fds);
+int		close_all_fds(
+			int *infile_fd,
+			int *outfile_fd,
+			int **pipe_fds,
+			int n_fds);
 
 int		initialize_pipex(t_pipex *pipex, int argc, char **argv, char **env);
 int		initialize_pipe_fds(int ***pipe_fds, int n_pipes);

@@ -6,7 +6,7 @@
 /*   By: atkaewse <atkaewse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 16:06:34 by atkaewse          #+#    #+#             */
-/*   Updated: 2025/01/28 02:36:29 by atkaewse         ###   ########.fr       */
+/*   Updated: 2025/02/02 15:00:17 by atkaewse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ int	initialize_pipe_fds(int ***pipe_fds, int n_pipes)
 		if (!(*pipe_fds)[i] || pipe((*pipe_fds)[i]) == -1)
 		{
 			perror("Failed to create pipe");
+			close_all_fds(NULL, NULL, *pipe_fds, i);
 			free_pipe_fds(*pipe_fds);
 			return (1);
 		}
