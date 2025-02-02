@@ -6,7 +6,7 @@
 /*   By: atkaewse <atkaewse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 15:28:36 by atkaewse          #+#    #+#             */
-/*   Updated: 2025/01/31 12:09:34 by atkaewse         ###   ########.fr       */
+/*   Updated: 2025/02/03 01:31:21 by atkaewse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,8 +116,7 @@ static char	*create_cmd_path(char *path, char *cmd)
 	char	*cmd_path;
 	int		len_cmd_path;
 
-	if (cmd[0] == '/' || cmd[0] == '~'
-		|| !ft_strncmp("./", cmd, 2) || !ft_strncmp("../", cmd, 3))
+	if (ft_strchr(cmd, '/') || ft_strchr(cmd, '~'))
 	{
 		cmd_path = ft_strdup(cmd);
 		if (!cmd_path)

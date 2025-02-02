@@ -6,7 +6,7 @@
 /*   By: atkaewse <atkaewse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 01:58:55 by atkaewse          #+#    #+#             */
-/*   Updated: 2025/02/02 15:58:38 by atkaewse         ###   ########.fr       */
+/*   Updated: 2025/02/03 01:46:42 by atkaewse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	process_pipex(t_pipex *pipex, char **env)
 		return (1);
 	}
 	if (fork_n_execute(pids, pipex, env)
-		|| wait_process(pids, pipex->cmd_count - 1))
+		|| wait_process(pids, pipex->cmd_count))
 	{
 		free(pids);
 		close_all_fds(
@@ -45,6 +45,7 @@ static int	wait_process(pid_t *pids, int n_pids)
 
 	if (!pids)
 		return (1);
+	i = 0;
 	while (i < n_pids)
 	{
 		if (waitpid(pids[i], &status, 0) == -1)
@@ -52,6 +53,7 @@ static int	wait_process(pid_t *pids, int n_pids)
 			perror("Failed to wait process");
 			return (-1);
 		}
+		i++;
 	}
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: atkaewse <atkaewse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 16:16:27 by atkaewse          #+#    #+#             */
-/*   Updated: 2025/01/30 14:19:14 by atkaewse         ###   ########.fr       */
+/*   Updated: 2025/02/03 01:19:12 by atkaewse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,10 +113,11 @@ static char	*split_word(char *str, int with_space)
 		i++;
 	while (str[i] && str[i] != ' ')
 		i++;
-	word = (char *)malloc(sizeof(char) * (i));
+	word = (char *)malloc(sizeof(char) * (i + 1));
 	if (!word)
 		return (NULL);
 	ft_strncpy(word, str, i);
+	word[i] = '\0';
 	return (word);
 }
 

@@ -6,7 +6,7 @@
 /*   By: atkaewse <atkaewse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 10:51:16 by atkaewse          #+#    #+#             */
-/*   Updated: 2025/02/02 15:58:00 by atkaewse         ###   ########.fr       */
+/*   Updated: 2025/02/03 01:31:51 by atkaewse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,6 @@ int	initialize_pipex(t_pipex *pipex, int argc, char **argv, char **env)
 		free_pipex(pipex);
 		return (1);
 	}
-	display(pipex);
+	// display(pipex);
 	return (0);
 }
