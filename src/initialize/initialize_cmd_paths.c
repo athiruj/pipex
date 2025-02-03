@@ -6,7 +6,7 @@
 /*   By: atkaewse <atkaewse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 15:28:36 by atkaewse          #+#    #+#             */
-/*   Updated: 2025/02/03 01:31:21 by atkaewse         ###   ########.fr       */
+/*   Updated: 2025/02/03 14:18:46 by atkaewse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static char	**get_env_path(char **env);
 
 static int	try_access(char **cmd_path, char *cmd, char **env);
 
-static void	free_env_path(char **env_path);
+static void	free_env_n_cmds_path(char **env_path, char **cmd_path);
 
 static char	*create_cmd_path(char *path, char *cmd);
 
@@ -39,21 +39,21 @@ int	initialize_cmd_paths(
 	if (!(*cmd_paths))
 	{
 		perror("Failed to allocate command path");
+		free_env_n_cmds_path(env_path, NULL);
+		free(env_path);
 		return (1);
 	}
-	i = 0;
-	while (i < cmd_count)
+	i = -1;
+	while (++i < cmd_count)
 	{
 		if (try_access(&(*cmd_paths)[i], cmd_args[i][0], env_path))
 		{
-			free_cmd_paths(*cmd_paths);
-			free_env_path(env_path);
+			free_env_n_cmds_path(env_path, *cmd_paths);
 			free(env_path);
 			return (1);
 		}
-		i++;
 	}
-	free_env_path(env_path);
+	free_env_n_cmds_path(env_path, NULL);
 	free(env_path);
 	return (0);
 }
@@ -143,8 +143,10 @@ static char	*create_cmd_path(char *path, char *cmd)
  *	free_env_path() deallocate ENV path
  *	Not return
  */
-static void	free_env_path(char **env_path)
+static void	free_env_n_cmds_path(char **env_path, char **cmd_path)
 {
+	if (cmd_path)
+		free_cmd_paths(cmd_path);
 	if (!env_path)
 		return ;
 	while (*env_path)
