@@ -6,7 +6,7 @@
 /*   By: atkaewse <atkaewse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 13:23:36 by atkaewse          #+#    #+#             */
-/*   Updated: 2025/02/02 15:57:36 by atkaewse         ###   ########.fr       */
+/*   Updated: 2025/02/04 16:01:41 by atkaewse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,10 @@ static int	prepare_pipes(t_pipex *pipex, int i_pipe);
 
 static int	execute_cmd(t_pipex *pipex, char **env, int n_pipe);
 
+/*
+ *	fork_n_execute() fork process and execute commands
+ *	Return 0 on success and return 1 when fail
+ */
 int	fork_n_execute(pid_t *pids, t_pipex *pipex, char **env)
 {
 	pid_t	pid;
@@ -42,6 +46,10 @@ int	fork_n_execute(pid_t *pids, t_pipex *pipex, char **env)
 	return (0);
 }
 
+/*
+ *	prepare_pipes() prepare pipe file descriptor
+ *	Return 0 on success and return 1 when fail
+ */
 static int	prepare_pipes(t_pipex *pipex, int i_pipe)
 {
 	if (i_pipe == 0)
@@ -66,6 +74,10 @@ static int	prepare_pipes(t_pipex *pipex, int i_pipe)
 	return (-1);
 }
 
+/*
+ *	execute_cmd() prepare pipe and execute per command
+ *	Return 0 on success and return 1 when fail
+ */
 static int	execute_cmd(t_pipex *pipex, char **env, int n_pipe)
 {
 	if (!pipex

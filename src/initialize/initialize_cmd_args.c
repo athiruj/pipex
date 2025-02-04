@@ -6,7 +6,7 @@
 /*   By: atkaewse <atkaewse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 16:16:27 by atkaewse          #+#    #+#             */
-/*   Updated: 2025/02/03 01:19:12 by atkaewse         ###   ########.fr       */
+/*   Updated: 2025/02/04 15:32:11 by atkaewse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ static char	**split_cmd_args(char *cmd_arg)
 	if (!cmd_arg)
 		return (NULL);
 	n_cmds = count_word(cmd_arg);
-	cmd_args = (char **)ft_calloc(sizeof(char *), (n_cmds + 1));
+	cmd_args = (char **)malloc(sizeof(char *) * (n_cmds + 1));
 	if (!cmd_args)
 		return (NULL);
 	i = 0;

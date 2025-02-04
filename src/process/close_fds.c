@@ -6,7 +6,7 @@
 /*   By: atkaewse <atkaewse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 13:31:35 by atkaewse          #+#    #+#             */
-/*   Updated: 2025/02/02 16:01:52 by atkaewse         ###   ########.fr       */
+/*   Updated: 2025/02/04 15:59:45 by atkaewse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,10 @@
 
 static int	close_fd(int *infile);
 
+/*
+ *	close_all_fds() close all opened file
+ *	Return 0 on success and return 1 when fail
+ */
 int	close_all_fds(int *infile, int *outfile, int **pipe_fds, int n_fds)
 {
 	int	i;
@@ -40,6 +44,10 @@ int	close_all_fds(int *infile, int *outfile, int **pipe_fds, int n_fds)
 	return (0);
 }
 
+/*
+ *	close_fds() close I/O file
+ *	Return 0 on success and return 1 when fail
+ */
 static int	close_fd(int *fd)
 {
 	if (fd && *fd > 2)

@@ -6,7 +6,7 @@
 /*   By: atkaewse <atkaewse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 10:28:41 by atkaewse          #+#    #+#             */
-/*   Updated: 2025/02/03 00:11:31 by atkaewse         ###   ########.fr       */
+/*   Updated: 2025/02/04 16:03:08 by atkaewse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,17 +31,20 @@ int	main(int argc, char **argv, char **env)
 	return (0);
 }
 
+/*
+ *	pipex() Do pipex
+ *	Return 0 on success and return 1 when fail
+ */
 int	pipex(int argc, char **argv, char **env)
 {
 	t_pipex	pipex;
 
 	if (initialize_pipex(&pipex, argc, argv, env)
 		|| process_pipex(&pipex, env))
+	{
+		free_pipex(&pipex);
 		return (1);
-	close_all_fds(
-		&pipex.infile_fd, &pipex.outfile_fd,
-		pipex.pipe_fds,
-		pipex.cmd_count - 1);
+	}
 	free_pipex(&pipex);
 	return (0);
 }

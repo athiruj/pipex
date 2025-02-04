@@ -1,6 +1,5 @@
 CC				= 		cc
-# CCFLAGS		=		-Wall -Wextra -Werror
-CCFLAGS			=		
+CCFLAGS			=		-Wall -Wextra -Werror
 AR				=		ar -rsc
 RM				=		rm -rf
 
@@ -101,7 +100,6 @@ all: $(NAME)
 
 $(NAME): $(OBJS_DIRS) $(SUBMD) $(ALL_OBJS) Makefile
 	$(CC) $(CCFLAGS) -I $(HEADER_DIR) $(LIBFT) $(GNL) -o $@ $(ALL_OBJS)
-# @printf "$(COLOUR_GREEN)Complie $@ Completed!!!\n$(COLOUR_END)"
 
 $(OBJS_DIRS):
 	@mkdir -p $@
@@ -111,7 +109,6 @@ $(LIBFT): $(LIB_DIR)
 
 $(GNL): $(GNL_OBJ_FILES)
 	$(AR) $@ $?
-# @printf "$(COLOUR_GREEN)Complie Get_next_line Completed!!!\n$(COLOUR_END)"
 
 $(GNL_OBJ_DIR)%.o: $(GNL_DIR)%.c $(GNL_DIR_HEADER)
 	$(CC) $(CCFLAGS) -I $(GNL_DIR_HEADER) -c $< -o $@
@@ -119,23 +116,16 @@ $(GNL_OBJ_DIR)%.o: $(GNL_DIR)%.c $(GNL_DIR_HEADER)
 $(SRC_OBJ_DIR)%.o: $(SRC_DIR)%.c
 	$(CC) $(CCFLAGS) -c $< -o $@
 
-# $(UTIL_OBJ_FILES)%.o: $(UTIL_DIR)%.c
-# 	@printf "$(COLOUR_GREEN)Complie Utility Objects Completed!!!\n$(COLOUR_END)"
-# 	$(CC) $(CCFLAGS) -c $< -o $@
-
 bonus: all
 
 clean:
 	@make clean -C $(LIB_DIR)
 	$(RM) $(OBJS_DIR)
-#@printf "$(COLOUR_RED)Remove Objects Completed\n$(COLOUR_END)"
 
 fclean: clean
 	@make fclean -C $(LIB_DIR)
 	$(RM) $(GNL)
-#@printf "$(COLOUR_RED)Remove Get_next_line Completed\n$(COLOUR_END)"
 	$(RM) $(NAME)
-	@printf "$(COLOUR_RED)Remove pipex Completed\n$(COLOUR_END)"
 	
 
 re: fclean all

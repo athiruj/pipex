@@ -6,7 +6,7 @@
 /*   By: atkaewse <atkaewse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 10:47:44 by atkaewse          #+#    #+#             */
-/*   Updated: 2025/01/28 02:37:13 by atkaewse         ###   ########.fr       */
+/*   Updated: 2025/02/04 15:52:03 by atkaewse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,16 +86,17 @@ char	*read_hdoc(char *eof)
 	char	*here_doc;
 	char	*line;
 
-	if (!eof)
+	here_doc = (char *)malloc(sizeof(char));
+	if (!here_doc || !eof)
 		return (NULL);
 	line = initialize_hdoc(eof);
 	if (!line)
 		return (NULL);
 	if (*line == '\0')
 		return (line);
-	here_doc = (char *)malloc(sizeof(char));
-	while (here_doc && ft_strcmp(line, eof) != '\n')
+	while (ft_strcmp(line, eof) != '\n')
 	{
+		write(1, "pipex heredoc> ", 15);
 		here_doc = append_to_hdoc(here_doc, line);
 		line = get_next_line(0);
 		if (!line)
@@ -116,6 +117,7 @@ static char	*initialize_hdoc(char *eof)
 {
 	char	*line;
 
+	write(1, "pipex heredoc> ", 15);
 	line = get_next_line(0);
 	if (!line)
 		return (NULL);
