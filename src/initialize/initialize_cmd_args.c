@@ -6,7 +6,7 @@
 /*   By: atkaewse <atkaewse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 16:16:27 by atkaewse          #+#    #+#             */
-/*   Updated: 2025/02/09 18:24:07 by atkaewse         ###   ########.fr       */
+/*   Updated: 2025/02/09 22:05:09 by atkaewse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	initialize_cmd_args(char ****cmd_args, int cmd_count, char **argv, int hdoc)
 	while (i < cmd_count)
 	{
 		(*cmd_args)[i] = split_cmd_args((argv + 2 + hdoc)[i]);
-		if (!(*cmd_args)[i])
+		if (!(*cmd_args)[i] || !(*cmd_args)[i][0])
 		{
 			perror("Failed to allocate command argument");
 			free_cmd_args(*cmd_args);
