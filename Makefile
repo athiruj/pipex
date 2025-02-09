@@ -99,7 +99,7 @@ all: $(NAME)
 	@printf "$(COLOUR_GREEN)Complie $@ Completed!!!\n$(COLOUR_END)"
 
 $(NAME): $(OBJS_DIRS) $(SUBMD) $(ALL_OBJS) Makefile
-	$(CC) $(CCFLAGS) -I $(HEADER_DIR) $(LIBFT) $(GNL) -o $@ $(ALL_OBJS)
+	$(CC) $(CCFLAGS) $(ALL_OBJS) $(LIBFT) $(GNL) -I $(HEADER_DIR) -o $@
 
 $(OBJS_DIRS):
 	@mkdir -p $@
